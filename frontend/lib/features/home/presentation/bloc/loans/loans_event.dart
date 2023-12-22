@@ -17,3 +17,5 @@ class GetLoansByUserEvent extends LoansEvent {
   @override
   List<Object> get props => [userId];
 }
+
+class GetAllLoansEvent extends LoansEvent {}

@@ -32,3 +32,5 @@ class ErrorBooks extends BooksState {
 }
 
 class BookReturned extends BooksState {}
+
+class BookCreated extends BooksState {}

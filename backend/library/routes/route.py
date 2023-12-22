@@ -80,6 +80,7 @@ async def get_book_by_code_route(code: str, current_user: User = Depends(get_cur
 @router.post("/api/books", response_description="Add new book", response_model=Book)
 async def create_book(book: Book, current_admin: User = Depends(get_current_admin_user)):   
     try:
+        print(book)
         created_book = await insert_book_to_db(serialize_book(book))  # Your logic to fetch the book
         if created_book:
             return JSONResponse(

@@ -9,7 +9,15 @@ async def get_all_loans_from_db():
     loans = []
     cursor = loans_collection.find({})
     async for document in cursor:
-        loans.append(Loan(**document))
+        # Convert ObjectId to string
+        document['_id'] = str(document['_id'])
+
+        # Ensure datetime fields are in string format
+        for field in ['issue_date', 'return_date']:
+            if field in document and isinstance(document[field], datetime):
+                document[field] = document[field].isoformat()
+
+        loans.append(document)  # Directly append the modified document
     return loans
 
 async def insert_loan_to_db(loan: dict):

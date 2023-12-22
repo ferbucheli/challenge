@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/core/constants/constants.dart';
 import 'package:frontend/core/router/router.dart';
 import 'package:frontend/features/auth/presentation/bloc/bloc.dart';
-import 'package:frontend/features/home/presentation/bloc/bloc.dart';
 import 'package:frontend/injection_container.dart' as di;
 
 import 'core/theme/theme.dart';

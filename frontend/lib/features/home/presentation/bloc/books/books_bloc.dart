@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:frontend/core/usecases/usecase.dart';
+import 'package:frontend/features/home/domain/usecases/create_book.dart';
 import 'package:frontend/features/home/domain/usecases/return_book.dart';
 import 'package:frontend/features/home/domain/usecases/usecases.dart';
 
@@ -16,13 +17,16 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
 
   final GetBooks getBooks;
   final ReturnBook returnBook;
+  final CreateBook createBook;
 
   BooksBloc({
     required this.getBooks,
     required this.returnBook,
+    required this.createBook,
   }) : super(BooksInitial()) {
     on<GetBooksEvent>(_onGetBooksRequested);
     on<ReturnBookEvent>(_onReturnBookRequested);
+    on<CreateBookEvent>(_onCreateBookRequested);
     add(GetBooksEvent());
   }
 
@@ -44,6 +48,16 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
     failureOrBooks!.fold(
       (failure) => emit(ErrorBooks(message: _mapFailureToMessage(failure))),
       (books) => emit(BookReturned()),
+    );
+  }
+
+  Future<void> _onCreateBookRequested(
+      CreateBookEvent event, Emitter<BooksState> emit) async {
+    emit(LoadingBooks());
+    final failureOrBook = await createBook(CreateBookParams(book: event.book));
+    failureOrBook!.fold(
+      (failure) => emit(ErrorBooks(message: _mapFailureToMessage(failure))),
+      (books) => emit(BookCreated()),
     );
   }
 

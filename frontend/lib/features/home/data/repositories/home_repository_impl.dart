@@ -17,9 +17,18 @@ class HomeRepositoryImpl extends HomeRepository {
   });
 
   @override
-  Future<Either<Failure, Book>?> createBook(Book book) {
-    // TODO: implement createBook
-    throw UnimplementedError();
+  Future<Either<Failure, Book>?> createBook(Book book) async {
+    if (await networkInfo.isConnected) {
+      try {
+        return Right(await dataSource.createBook(book));
+      } on BookErrorException {
+        return Left(BookErrorFailure());
+      } catch (e) {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(ServerFailure());
+    }
   }
 
   @override
@@ -59,9 +68,18 @@ class HomeRepositoryImpl extends HomeRepository {
   }
 
   @override
-  Future<Either<Failure, List<Loan>>?> getLoans() {
-    // TODO: implement getLoans
-    throw UnimplementedError();
+  Future<Either<Failure, List<Loan>>?> getLoans() async {
+    if (await networkInfo.isConnected) {
+      try {
+        return Right(await dataSource.getLoans());
+      } on BookErrorException {
+        return Left(BookErrorFailure());
+      } catch (e) {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(ServerFailure());
+    }
   }
 
   @override

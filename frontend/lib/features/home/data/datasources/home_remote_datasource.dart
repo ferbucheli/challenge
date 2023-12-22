@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:frontend/core/error/error.dart';
 import 'package:frontend/features/home/data/models/models.dart';
@@ -33,30 +35,32 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       final token = await keyValueStorageService.getValue<String>('token');
       var headers = {
         "accept": 'application/json',
-        "Authorization": "Bearer $token"
+        "Authorization": "Bearer $token",
+        "Content-Type": "application/json"
       };
+      final data = jsonEncode({
+        'code': book.code,
+        'title': book.title,
+        'author': book.author,
+        'description': book.description,
+        'quantity': book.quantity,
+      });
+      print('Sending data: $data');
       _client.options.headers = headers;
       final result = await _client.post(
         createBookUrl,
-        data: {
-          'code': book.code,
-          'title': book.title,
-          'author': book.author,
-          'description': book.description,
-          'quantity': book.quantity,
-        },
-        options: Options(contentType: Headers.formUrlEncodedContentType),
+        data: data,
       );
 
       if (result.data == null) {
         throw BookErrorException('No se pudo crear el libro');
       }
 
-      return BookModel.fromJson(result.data);
+      return BookModel.fromJson(result.data['data']);
     } on BookErrorException {
       rethrow;
     } catch (e) {
-      print(e);
+      print('Error: $e');
       throw ServerException();
     }
   }
@@ -78,7 +82,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       _client.options.headers = headers;
       final result = await _client.get(
         '$getBooksUrl/$bookCode',
-        options: Options(contentType: Headers.formUrlEncodedContentType),
+        options: Options(contentType: Headers.jsonContentType),
       );
 
       if (result.data == null) {
@@ -121,9 +125,30 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   }
 
   @override
-  Future<List<Loan>> getLoans() {
-    // TODO: implement getLoans
-    throw UnimplementedError();
+  Future<List<Loan>> getLoans() async {
+    try {
+      final token = await keyValueStorageService.getValue<String>('token');
+      var headers = {
+        "accept": 'application/json',
+        "Authorization": "Bearer $token"
+      };
+      _client.options.headers = headers;
+      final result = await _client.get(
+        '$getAllLoansUrl',
+        options: Options(contentType: Headers.formUrlEncodedContentType),
+      );
+      print(result.data);
+      if (result.data == null) {
+        throw BookErrorException('No se pudo obtener los libros');
+      }
+      return List<LoanModel>.from(
+          result.data['data'].map((e) => LoanModel.fromJson(e)));
+    } on BookErrorException {
+      rethrow;
+    } catch (e) {
+      print('error1 $e');
+      throw ServerException();
+    }
   }
 
   @override

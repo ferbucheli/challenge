@@ -4,3 +4,4 @@ const String getBooksUrl = 'books';
 const String createLoan = 'loans';
 const String getLoansUrl = 'users';
 const String returnBookUrl = 'books';
+const String getAllLoansUrl = 'loans';

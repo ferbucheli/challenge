@@ -19,3 +19,14 @@ class ReturnBookEvent extends BooksEvent {
   @override
   List<Object> get props => [bookCode];
 }
+
+class CreateBookEvent extends BooksEvent {
+  final Book book;
+
+  CreateBookEvent({
+    required this.book,
+  });
+
+  @override
+  List<Object> get props => [book];
+}

@@ -39,6 +39,10 @@ class HomeScreen extends StatelessWidget {
             },
             child: Column(
               children: [
+                SizedBox(height: 20.rh(context)),
+                Text('Libros disponibles',
+                    style: Theme.of(context).textTheme.titleLarge),
+                SizedBox(height: 20.rh(context)),
                 Expanded(
                   child: ListView.builder(
                     itemCount: state.books.length,

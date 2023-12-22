@@ -4,6 +4,7 @@ import 'package:frontend/core/constants/constants.dart';
 import 'package:frontend/core/network/network.dart';
 import 'package:frontend/features/home/data/datasources/datasources.dart';
 import 'package:frontend/features/home/domain/repositories/repositories.dart';
+import 'package:frontend/features/home/domain/usecases/create_book.dart';
 import 'package:frontend/features/home/domain/usecases/usecases.dart';
 import 'package:frontend/features/home/presentation/bloc/reservation/reservation_bloc.dart';
 import 'package:frontend/features/shared/data/services/services.dart';
@@ -61,6 +62,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => LoanUseCase(sl()));
   sl.registerLazySingleton(() => GetLoansByUser(repository: sl()));
   sl.registerLazySingleton(() => ReturnBook(sl()));
+  sl.registerLazySingleton(() => GetLoans(sl()));
+  sl.registerLazySingleton(() => CreateBook(sl()));
 
   //! Auth
 
@@ -78,6 +81,7 @@ Future<void> init() async {
   sl.registerFactory(() => BooksBloc(
         getBooks: sl(),
         returnBook: sl(),
+        createBook: sl(),
       ));
 
   sl.registerFactory(() => BookDetailBloc(
@@ -92,5 +96,6 @@ Future<void> init() async {
 
   sl.registerFactory(() => LoansBloc(
         getLoansByUser: sl(),
+        getLoans: sl(),
       ));
 }

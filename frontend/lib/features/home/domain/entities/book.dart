@@ -6,7 +6,7 @@ class Book extends Equatable {
   final String author;
   final String description;
   final int quantity;
-  final int reservedQuantity;
+  final int? reservedQuantity;
 
   const Book({
     required this.code,

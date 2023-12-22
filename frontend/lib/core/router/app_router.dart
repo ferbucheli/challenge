@@ -51,6 +51,21 @@ final appRouter = GoRouter(
       path: '/admin',
       builder: (context, state) => AdminScreen(),
     ),
+
+    GoRoute(
+      path: '/admin/books',
+      builder: (context, state) => AdminBooksScreen(),
+    ),
+
+    GoRoute(
+      path: '/admin/loans',
+      builder: (context, state) => AdminLoansScreen(),
+    ),
+
+    GoRoute(
+      path: '/admin/books/add',
+      builder: (context, state) => AddBookScreen(),
+    )
   ],
   redirect: (context, state) {
     final isGoingTo = state.fullPath;

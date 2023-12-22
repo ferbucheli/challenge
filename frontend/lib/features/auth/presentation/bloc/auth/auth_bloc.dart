@@ -1,13 +1,12 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:frontend/features/auth/domain/usecases/login.dart';
 import 'package:frontend/features/shared/data/services/services.dart';
+import 'package:equatable/equatable.dart';
+import 'package:frontend/features/auth/domain/entities/entities.dart';
+import '../../../../../core/error/error.dart';
 
-
-const String SERVER_FAILURE_MESSAGE = 'Server Failure';
-const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
-const String INVALID_INPUT_FAILURE_MESSAGE =
-    'Invalid Input - The number must be a positive integer or zero.';
+part 'auth_event.dart';
+part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final Login loginUseCase;
@@ -30,7 +29,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     failureOrUser!.fold(
       (failure) => emit(Error(message: _mapFailureToMessage(failure))),
       (user) async {
-        emit(Authenticated(user: user));
+        if (user.role == 'admin') {
+          emit(AdminAuthenticated(user: user));
+        } else {
+          emit(UserAuthenticated(user: user));
+        }
         await keyValueStorageService.setKeyValue('token', user.token);
         await keyValueStorageService.setKeyValue('username', user.username);
         await keyValueStorageService.setKeyValue('password', event.password);
@@ -70,4 +73,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         return 'Unexpected error';
     }
   }
+
+  String SERVER_FAILURE_MESSAGE = 'Server Failure';
+  String CACHE_FAILURE_MESSAGE = 'Cache Failure';
+  String INVALID_INPUT_FAILURE_MESSAGE =
+      'Invalid Input - The number must be a positive integer or zero.';
 }

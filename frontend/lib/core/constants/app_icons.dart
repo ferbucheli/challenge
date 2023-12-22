@@ -4,6 +4,7 @@ class AppIcons {
 
   static String user = _svgPath("user");
   static String lock = _svgPath("lock");
+  static String heart = _svgPath("heart");
 
   static String _svgPath(String name) {
     return "$_basePath$name.svg";

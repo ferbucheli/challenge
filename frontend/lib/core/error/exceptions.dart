@@ -13,4 +13,11 @@ class InvalidCredentialsException implements ServerException {
   InvalidCredentialsException(this.message);
 }
 
+class BookErrorException implements ServerException {
+  @override
+  final String message;
+
+  BookErrorException(this.message);
+}
+
 class InvalidTokenException implements Exception {}

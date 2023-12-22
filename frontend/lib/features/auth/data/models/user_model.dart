@@ -4,26 +4,29 @@ import 'package:frontend/features/auth/domain/entities/entities.dart';
 class UserModel extends User {
   UserModel({
     required super.id,
-    required super.name,
-    required super.email,
-    required super.photoUrl,
+    required super.username,
+    required super.token,
+    required super.disabled,
+    required super.role,
   });
 
   factory UserModel.fromJson(Json json) {
     return UserModel(
-      id: json['id'],
-      name: json['name'],
-      email: json['email'],
-      photoUrl: json['photoUrl'],
+      id: json['user']['id'],
+      username: json['user']['username'],
+      token: json['token'],
+      disabled: json['user']['disabled'],
+      role: json['user']['role'],
     );
   }
 
   Json toJson() {
     return {
       'id': super.id,
-      'name': super.name,
-      'email': super.email,
-      'photoUrl': super.photoUrl,
+      'name': super.username,
+      'token': super.token,
+      'disabled': super.disabled,
+      'role': super.role,
     };
   }
 }

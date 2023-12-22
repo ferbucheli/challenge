@@ -1,5 +1,11 @@
 /// The code you provided is configuring a router using the `go_router` package in Dart.
+import 'package:frontend/core/router/app_router_notifier.dart';
+import 'package:frontend/features/auth/presentation/screens/screens.dart';
+import 'package:frontend/features/home/presentation/screens/screens.dart';
+import 'package:frontend/injection_container.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../features/auth/presentation/bloc/bloc.dart';
 
 final authBloc = sl<AuthBloc>();
 final authListenable = AuthBlocListenable(authBloc);
@@ -27,11 +33,23 @@ final appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/order-detail/:id',
-      builder: (context, state) {
-        final id = state.pathParameters['id']!;
-        return OrderDetailScreen(orderId: id);
-      },
+        path: '/books/:bookCode',
+        builder: (context, state) {
+          final bookCode = state.pathParameters['bookCode'];
+          return BookDetailScreen(bookCode: bookCode!);
+        }),
+
+    GoRoute(
+        path: '/loans/:userId',
+        builder: (context, state) {
+          final userId = state.pathParameters['userId'];
+          return LoansByUserScreen(userId: userId!);
+        }),
+
+    ///* Admin Routes
+    GoRoute(
+      path: '/admin',
+      builder: (context, state) => AdminScreen(),
     ),
   ],
   redirect: (context, state) {
@@ -40,8 +58,11 @@ final appRouter = GoRouter(
     if (isGoingTo == '/splash' && authBloc.state is Checking) {
       return null;
     }
-    if (authBloc.state is Authenticated) {
+    if (authBloc.state is UserAuthenticated) {
       if (isGoingTo == '/login' || isGoingTo == '/splash') return '/home';
+    }
+    if (authBloc.state is AdminAuthenticated) {
+      if (isGoingTo == '/login' || isGoingTo == '/splash') return '/admin';
     }
     if (authBloc.state is Unauthenticated) {
       if (isGoingTo == '/login') return null;

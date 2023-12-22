@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hubilogist_transportistas/core/theme/theme.dart';
-import 'package:hubilogist_transportistas/features/auth/presentation/bloc/auth/auth_bloc.dart';
-import 'package:hubilogist_transportistas/features/auth/presentation/bloc/login_form_cubit.dart';
-import 'package:hubilogist_transportistas/features/auth/presentation/widgets/widgets.dart';
-import 'package:hubilogist_transportistas/features/shared/widgets/utils/ui_utils.dart';
-import 'package:hubilogist_transportistas/features/shared/widgets/widgets.dart';
-import 'package:hubilogist_transportistas/injection_container.dart';
+import 'package:frontend/core/theme/theme.dart';
+import 'package:frontend/features/auth/presentation/bloc/bloc.dart';
+import 'package:frontend/features/auth/presentation/widgets/widgets.dart';
+import 'package:frontend/features/shared/widgets/widgets.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+
+import '../../../../injection_container.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -54,7 +53,7 @@ class _LoginForm extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        final checkingRequest = state is Checking || state is Authenticated;
+        final checkingRequest = state is Checking || state is UserAuthenticated;
         return Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
@@ -135,7 +134,7 @@ class LoginText extends StatelessWidget {
       left: 80.rw(context),
       top: (30 + (257 / 2) - 20).rh(context),
       child: Image.asset(
-        'assets/img/logo-hubilogist.png',
+        'assets/img/logo_espol.png',
         height: 200.rh(context),
         width: 200.rw(context),
       ),

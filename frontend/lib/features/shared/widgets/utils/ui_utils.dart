@@ -20,7 +20,19 @@ class UiUtils {
       Color? normalProgressColor,
       bool? showWhite}) {
     return LottieBuilder.asset(
-      "assets/lottie/truck_loading.json",
+      "assets/lottie/loading-spinner.json",
+      width: width ?? 45,
+      height: height ?? 45,
+    );
+  }
+
+  static Widget booksLoading(
+      {double? width,
+      double? height,
+      Color? normalProgressColor,
+      bool? showWhite}) {
+    return LottieBuilder.asset(
+      "assets/lottie/books_loading.json",
       width: width ?? 45,
       height: height ?? 45,
     );

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hubilogist_transportistas/core/constants/constants.dart';
-import 'package:hubilogist_transportistas/core/theme/theme.dart';
-import 'package:hubilogist_transportistas/features/auth/presentation/bloc/bloc.dart';
-import 'package:hubilogist_transportistas/features/shared/widgets/widgets.dart';
+import 'package:frontend/core/theme/theme.dart';
+import 'package:frontend/features/auth/presentation/bloc/bloc.dart';
+import 'package:frontend/features/shared/widgets/widgets.dart';
+
+import '../../../../core/constants/constants.dart';
 
 class UserInput extends StatelessWidget {
   const UserInput({

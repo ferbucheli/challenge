@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hubilogist_transportistas/core/theme/extensions/responsive_size.dart';
-import 'package:hubilogist_transportistas/features/auth/presentation/bloc/auth/auth_bloc.dart';
-import 'package:hubilogist_transportistas/features/shared/widgets/widgets.dart';
+import 'package:frontend/core/constants/constants.dart';
+import 'package:frontend/core/theme/theme.dart';
+import 'package:frontend/features/auth/presentation/bloc/bloc.dart';
+import 'package:frontend/features/shared/widgets/widgets.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -47,11 +48,12 @@ class SideMenuState extends State<SideMenu> {
               padding: EdgeInsets.fromLTRB(50, hasNotch ? 0 : 20, 16, 0),
               child: Row(
                 children: [
-                  Text('Powered by ', style: textStyles.labelLarge),
-                  Image.asset(
-                    'assets/img/logo-hubilogist.png',
-                    height: 100.rh(context),
-                    width: 100.rw(context),
+                  Text('Powered by ferbucheli', style: textStyles.labelLarge),
+                  SizedBox(width: 5.rw(context)),
+                  UiUtils.getSvg(
+                    AppIcons.heart,
+                    color: Colors.black38,
+                    width: 20.rf(context),
                   )
                 ],
               ),

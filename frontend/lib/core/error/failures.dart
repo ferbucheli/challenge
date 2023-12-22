@@ -18,3 +18,8 @@ class InvalidCredentialsFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
+
+class BookErrorFailure extends Failure {
+  @override
+  List<Object?> get props => [];
+}

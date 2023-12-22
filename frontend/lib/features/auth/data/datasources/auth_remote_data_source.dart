@@ -22,17 +22,18 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         options: Options(contentType: Headers.formUrlEncodedContentType),
       );
 
-      if (result.data == null || result.data!['token'] == null) {
+      if (result.data == null || result.data['data']['token'] == null) {
         throw InvalidCredentialsException('No se pudo iniciar sesión');
       }
 
       if (result.data == null) {
         throw ServerException();
       }
-      return UserModel.fromJson(result.data!);
+      return UserModel.fromJson(result.data['data']);
     } on InvalidCredentialsException {
       rethrow;
     } catch (e) {
+      print(e);
       throw ServerException();
     }
   }

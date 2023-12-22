@@ -11,10 +11,21 @@ class Empty extends AuthState {}
 
 class Checking extends AuthState {}
 
-class Authenticated extends AuthState {
+class UserAuthenticated extends AuthState {
   final User user;
 
-  const Authenticated({
+  const UserAuthenticated({
+    required this.user,
+  });
+
+  @override
+  List<Object> get props => [user];
+}
+
+class AdminAuthenticated extends AuthState {
+  final User user;
+
+  const AdminAuthenticated({
     required this.user,
   });
 

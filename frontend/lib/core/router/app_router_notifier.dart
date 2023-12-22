@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:frontend/features/auth/presentation/bloc/bloc.dart';
 
 class AuthBlocListenable extends ChangeNotifier {
   final AuthBloc authBloc;

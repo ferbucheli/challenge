@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hubilogist_transportistas/core/theme/theme.dart';
-import 'package:hubilogist_transportistas/features/shared/widgets/utils/ui_utils.dart';
+import 'package:frontend/core/theme/theme.dart';
+import 'package:frontend/features/shared/widgets/utils/ui_utils.dart';
 
 class CheckAuthStatusScreen extends StatelessWidget {
   const CheckAuthStatusScreen({super.key});

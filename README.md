@@ -14,7 +14,7 @@ This project digitizes the management of a university library, transitioning fro
 		</tr> 
     <tr>  
 			<td><b>Backend</b></td>  
-			<td>Django</td>  
+			<td>FastApi</td>  
 		</tr>  
 </table>
 
